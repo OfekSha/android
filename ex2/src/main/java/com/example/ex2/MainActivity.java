@@ -96,8 +96,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+    public void onSaveInstanceState( Bundle outState) {
+        TextView tv = (TextView) (findViewById(R.id.sol));
+        outState.putString("sol",tv.getText().toString());
+        super.onSaveInstanceState(outState);
         //Log.i(TAG,index.toString()+"onSaveInstanceState");
         // index++;
     }
@@ -120,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        TextView tv = (TextView) (findViewById(R.id.sol));
+        tv.setText(savedInstanceState.getString("sol"));
         //Log.i(TAG,index.toString()+"onRestoreInstanceState");
         //index++;
     }

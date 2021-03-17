@@ -23,12 +23,13 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="352dp"
-        android:layout_height="456dp"
+        android:layout_width="297dp"
+        android:layout_height="275dp"
         android:orientation="vertical"
         android:paddingStart="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.006"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView">
 
@@ -92,7 +93,7 @@
                 android:textColor="#0E0606"
                 android:textSize="50sp" />
 
-                <!--android:background="@drawable/background_btn"
+            <!--android:background="@drawable/background_btn"
                 style="@style/Widget.AppCompat.Button.Borderless"
 -->
 
@@ -158,36 +159,53 @@
             android:layout_marginTop="25dp"
             android:background="@color/black" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/background_btn"
-                android:text="="
-                android:textAlignment="center"
-                android:textColor="#000000"
-                android:textColorHighlight="#000000"
-                android:textSize="50sp" />
-
-            <TextView
-                android:id="@+id/sol"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginLeft="100dp"
-                android:layout_weight="1"
-                android:background="@drawable/background"
-                android:ems="10"
-                android:padding="10dp"
-                android:textColor="#000000"
-                android:textColorHighlight="#000000"
-                android:textSize="18sp" />
-        </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="321dp"
+        android:layout_height="52dp"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/background_btn"
+            android:text="="
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textColorHighlight="#000000"
+            android:textSize="50sp" />
+
+        <TextView
+            android:id="@+id/sol"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginLeft="100dp"
+            android:layout_weight="1"
+            android:background="@drawable/background"
+            android:ems="10"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textColorHighlight="#000000"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="3dp"
+        android:layout_height="200dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
