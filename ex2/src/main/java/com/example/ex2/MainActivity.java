@@ -7,10 +7,71 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MyActivity";
-    private static Integer index=0;
+    private static Integer index = 0;
+
+    public void plusClicked(View v) {
+        EditText et = (EditText) (findViewById(R.id.op1));
+        TextView tv = (TextView) (findViewById(R.id.sol));
+        try {
+            float num1 = Float.valueOf(et.getText().toString());
+            et = (EditText) (findViewById(R.id.op2));
+            float num2 = Float.valueOf(et.getText().toString());
+
+            tv.setText(Float.toString(num1 + num2));
+        } catch (Exception e) {
+            tv.setText("missing number");
+        }
+    }
+
+    public void minusClicked(View v) {
+        EditText et = (EditText) (findViewById(R.id.op1));
+        TextView tv = (TextView) (findViewById(R.id.sol));
+        try {
+            float num1 = Float.valueOf(et.getText().toString());
+            et = (EditText) (findViewById(R.id.op2));
+            float num2 = Float.valueOf(et.getText().toString());
+
+            tv.setText(Float.toString(num1 - num2));
+        } catch (Exception e) {
+            tv.setText("missing number");
+        }
+    }
+
+    public void multiClicked(View v) {
+        EditText et = (EditText) (findViewById(R.id.op1));
+        TextView tv = (TextView) (findViewById(R.id.sol));
+        try {
+            float num1 = Float.valueOf(et.getText().toString());
+            et = (EditText) (findViewById(R.id.op2));
+            float num2 = Float.valueOf(et.getText().toString());
+
+            tv.setText(Float.toString(num1 * num2));
+        } catch (Exception e) {
+            tv.setText("missing number");
+        }
+    }
+
+    public void divClicked(View v) {
+        EditText et = (EditText) (findViewById(R.id.op1));
+        TextView tv = (TextView) (findViewById(R.id.sol));
+        try {
+            float num1 = Float.valueOf(et.getText().toString());
+            et = (EditText) (findViewById(R.id.op2));
+            float num2 = Float.valueOf(et.getText().toString());
+            tv.setText(Float.toString(num1 / num2));
+        } catch (Exception e) {
+            tv.setText("missing number");
+        }
+
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
