@@ -6,9 +6,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -27,15 +29,34 @@ public class MainActivity extends AppCompatActivity {
         if (STATE_TEST) {
             StackTraceElement[] ste = Thread.currentThread().getStackTrace();
             String methodName=ste[3].getMethodName();
-            if ( methodName.equalsIgnoreCase("onPause"))
-                index=0;
+
+            // on start of change orientation "Pressed"
+            if (isChangingConfigurations() && methodName.equalsIgnoreCase("onPause")) index=0;
+
+
             Log.i(TAG, "order: "+index.toString() + " name: "+ methodName);
             index++;
-           if( methodName.equalsIgnoreCase("onResume"))
-               index=0;
+
+            // end of other changes (first time , back,home)
+            if (!isChangingConfigurations() && index==3) index=0;
         }
 
     }
+
+
+    // on home pressed
+    @Override
+    protected void onUserLeaveHint() {
+        index=0;
+        super.onUserLeaveHint();
+    }
+    // on back pressed
+    @Override
+    public void onBackPressed() {
+        index=0;
+        super.onBackPressed();
+    }
+
     // end state testing configurations.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
