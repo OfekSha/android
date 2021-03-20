@@ -65,6 +65,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/buttons_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
@@ -76,6 +77,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/btn_selector"
+                android:foreground="@drawable/btn_selector"
                 android:onClick="plusClicked"
                 android:text="+"
                 android:textColor="#0E0606"
@@ -87,12 +90,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/btn_selector"
+                android:foreground="@drawable/btn_selector"
                 android:onClick="minusClicked"
                 android:text="-"
                 android:textColor="#0E0606"
                 android:textSize="50sp" />
 
-                <!--android:background="@drawable/background_btn"
+            <!--android:background="@drawable/background_btn"
                 style="@style/Widget.AppCompat.Button.Borderless"
 -->
 
@@ -102,6 +107,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/btn_selector"
+                android:foreground="@drawable/btn_selector"
                 android:onClick="multiClicked"
                 android:text="*"
                 android:textColor="#0E0606"
@@ -113,6 +120,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/btn_selector"
+                android:foreground="@drawable/btn_selector"
                 android:onClick="divClicked"
                 android:text="/"
                 android:textColor="#0E0606"

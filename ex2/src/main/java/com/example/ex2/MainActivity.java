@@ -4,18 +4,26 @@ package com.example.ex2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MyActivity";
     private static Integer index = 0;
 
     public void plusClicked(View v) {
+        hideSoftKeyboard();
         EditText et = (EditText) (findViewById(R.id.op1));
         TextView tv = (TextView) (findViewById(R.id.sol));
         try {
@@ -30,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void minusClicked(View v) {
+        hideSoftKeyboard();
         EditText et = (EditText) (findViewById(R.id.op1));
         TextView tv = (TextView) (findViewById(R.id.sol));
         try {
@@ -44,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void multiClicked(View v) {
+        hideSoftKeyboard();
         EditText et = (EditText) (findViewById(R.id.op1));
         TextView tv = (TextView) (findViewById(R.id.sol));
         try {
@@ -58,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void divClicked(View v) {
+        hideSoftKeyboard();
         EditText et = (EditText) (findViewById(R.id.op1));
         TextView tv = (TextView) (findViewById(R.id.sol));
         try {
@@ -70,12 +81,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-    }
 
+    }
+    public void hideSoftKeyboard() {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                getCurrentFocus().getWindowToken(), 0);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         //  Log.i(TAG,index.toString()+ "onCreate");
         // index++;
     }
