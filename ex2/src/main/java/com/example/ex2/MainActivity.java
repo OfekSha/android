@@ -20,15 +20,19 @@ public class MainActivity extends AppCompatActivity {
     private static final boolean STATE_TEST =true; // print to logcat the states.
     private static final String TAG = "MyActivity";
 
-    private Integer index = 0; // for each activity created. (if call destroy then index will be 0 again)
+    private static Integer index = 0; // the order of state
 
     // state test method need to call in each state method:
     private void stateTest() {
         if (STATE_TEST) {
             StackTraceElement[] ste = Thread.currentThread().getStackTrace();
             String methodName=ste[3].getMethodName();
+            if ( methodName.equalsIgnoreCase("onPause"))
+                index=0;
             Log.i(TAG, "order: "+index.toString() + " name: "+ methodName);
             index++;
+           if( methodName.equalsIgnoreCase("onResume"))
+               index=0;
         }
 
     }
