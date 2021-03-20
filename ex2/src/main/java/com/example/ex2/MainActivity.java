@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
             tv.setText(Float.toString(num1 + num2));
         } catch (Exception e) {
-            tv.setText("missing number");
+            toastMsg("missing number");
         }
     }
 
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
             tv.setText(Float.toString(num1 - num2));
         } catch (Exception e) {
-            tv.setText("missing number");
+            toastMsg("missing number");
         }
     }
 
@@ -159,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
             tv.setText(Float.toString(num1 * num2));
         } catch (Exception e) {
-            tv.setText("missing number");
+            toastMsg("missing number");
         }
     }
 
@@ -171,9 +172,15 @@ public class MainActivity extends AppCompatActivity {
             float num1 = Float.valueOf(et.getText().toString());
             et = (EditText) (findViewById(R.id.op2));
             float num2 = Float.valueOf(et.getText().toString());
-            tv.setText(Float.toString(num1 / num2));
+           Float res= num1 / num2;
+           if (res.isInfinite() || res.isNaN()) {
+               tv.setText("");
+               toastMsg("Divide exception: "+res.toString());
+           }
+           else tv.setText(Float.toString(num1 / num2));
         } catch (Exception e) {
-            tv.setText("missing number");
+            toastMsg("missing number");
+            tv.setText("");
         }
 
 
@@ -185,7 +192,10 @@ public class MainActivity extends AppCompatActivity {
                 (InputMethodManager) getSystemService(
                         Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(
-                getCurrentFocus().getWindowToken(), 0);
+                findViewById(android.R.id.content).getWindowToken(), 0);
+    }
+    private void toastMsg(String msg){
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
 }
