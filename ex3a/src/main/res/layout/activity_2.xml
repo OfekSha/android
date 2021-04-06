@@ -7,9 +7,9 @@
     tools:context=".Activity2">
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
-        android:layout_width="173dp"
-        android:layout_height="35dp"
+        android:id="@+id/ln"
+        android:layout_width="187dp"
+        android:layout_height="42dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textColor="#000000"
@@ -27,7 +27,7 @@
         android:text="Last Name:"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName3"
+        app:layout_constraintEnd_toStartOf="@+id/ln"
         app:layout_constraintHorizontal_bias="0.789"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -40,16 +40,16 @@
         android:text="First Name:"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/fn"
         app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.106" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="173dp"
-        android:layout_height="35dp"
+        android:id="@+id/fn"
+        android:layout_width="186dp"
+        android:layout_height="47dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textColor="@color/black"
@@ -61,20 +61,22 @@
         app:layout_constraintVertical_bias="0.082" />
 
     <RadioGroup
-        android:layout_width="337dp"
-        android:layout_height="109dp"
+        android:id="@+id/rg"
+        android:layout_width="331dp"
+        android:layout_height="51dp"
         android:orientation='horizontal'
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.202"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3"
+        app:layout_constraintTop_toBottomOf="@+id/ln"
         app:layout_constraintVertical_bias="0.036">
 
         <RadioButton
             android:id="@+id/radioButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="false"
             android:text="Male" />
 
         <RadioButton
@@ -84,5 +86,18 @@
             android:text="Female" />
 
     </RadioGroup>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="sendBack"
+        android:text="Send Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.421"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rg"
+        app:layout_constraintVertical_bias="0.109" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
