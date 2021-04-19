@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/ex2" />
             <option value="$PROJECT_DIR$/ex3a" />
             <option value="$PROJECT_DIR$/ex3b" />
+            <option value="$PROJECT_DIR$/ex3client" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
