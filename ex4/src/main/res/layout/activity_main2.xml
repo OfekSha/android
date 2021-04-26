@@ -31,14 +31,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <include
-        layout="@layout/my_seekbar"
-        android:layout_width="192dp"
-        android:layout_height="61dp"
-        android:layout_marginEnd="28dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="352dp"

@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -17,51 +18,15 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
 
-    //start state testing configurations:
-    private static final boolean STATE_TEST =true; // print to logcat the states.
-    private static final String TAG = "MyActivity";
+        public int numberOfZeros=0;
+        public float masterResult =0;
 
-    private static Integer index = 0; // the order of state
-
-    // state test method need to call in each state method:
-    private void stateTest() {
-        if (STATE_TEST) {
-            StackTraceElement[] ste = Thread.currentThread().getStackTrace();
-            String methodName=ste[3].getMethodName();
-
-            // on start of change orientation "Pressed"
-            if (isChangingConfigurations() && methodName.equalsIgnoreCase("onPause")) index=0;
-
-
-            Log.i(TAG, "order: "+index.toString() + " name: "+ methodName);
-            index++;
-
-            // end of other changes (first time , back,home)
-            if (!isChangingConfigurations() && index==3) index=0;
-        }
-
-    }
-
-
-    // on home pressed
-    @Override
-    protected void onUserLeaveHint() {
-        index=0;
-        super.onUserLeaveHint();
-    }
-    // on back pressed
-    @Override
-    public void onBackPressed() {
-        index=0;
-        super.onBackPressed();
-    }
-
-    // end state testing configurations.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,59 +38,49 @@ public class MainActivity extends AppCompatActivity {
         handlerNumber.onTextChanged("ss",1,2,3);
         tvU.addTextChangedListener(handlerNumber);
         tvL.addTextChangedListener(handlerNumber);
+        //-------------
+        ((SeekBar)findViewById(R.id.sb)).setOnSeekBarChangeListener(this);
+        //-------------
+        findViewById(R.id.clr).setOnClickListener(new View.OnClickListener(){
+            public void onClick(View arg0) {
+                Button btn = (Button)arg0;
+                EditText ed1 = (EditText) findViewById(R.id.op1);
+                EditText ed2 = (EditText) findViewById(R.id.op2);
+                TextView ed3 = (TextView) findViewById(R.id.sol);
+
+                ed1.setText("");
+                ed2.setText("");
+                ed3.setText("");
+
+            }
+        });
 
 
 
-        stateTest();
+
+
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        stateTest();
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        stateTest();
-    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         TextView tv = (TextView) (findViewById(R.id.sol));
         outState.putString("sol",tv.getText().toString());
         super.onSaveInstanceState(outState);
-        stateTest();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        stateTest();
 
-    }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        stateTest();
-    }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         TextView tv = (TextView) (findViewById(R.id.sol));
         tv.setText(savedInstanceState.getString("sol"));
-        stateTest();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        stateTest();
-    }
 
 
     public void plusClicked(View v) {
@@ -137,7 +92,9 @@ public class MainActivity extends AppCompatActivity {
             et = (EditText) (findViewById(R.id.op2));
             float num2 = Float.valueOf(et.getText().toString());
 
-            tv.setText(Float.toString(num1 + num2));
+            //tv.setText(Float.toString(num1 + num2));
+            masterResult=num1 + num2;
+            solutionFormatter(masterResult);
         } catch (Exception e) {
             toastMsg("missing number");
         }
@@ -149,13 +106,13 @@ public class MainActivity extends AppCompatActivity {
     public void minusClicked(View v) {
         hideSoftKeyboard();
         EditText et = (EditText) (findViewById(R.id.op1));
-        TextView tv = (TextView) (findViewById(R.id.sol));
         try {
             float num1 = Float.valueOf(et.getText().toString());
             et = (EditText) (findViewById(R.id.op2));
             float num2 = Float.valueOf(et.getText().toString());
+            masterResult=num1-num2;
+            solutionFormatter(masterResult);
 
-            tv.setText(Float.toString(num1 - num2));
         } catch (Exception e) {
             toastMsg("missing number");
         }
@@ -164,13 +121,12 @@ public class MainActivity extends AppCompatActivity {
     public void multiClicked(View v) {
         hideSoftKeyboard();
         EditText et = (EditText) (findViewById(R.id.op1));
-        TextView tv = (TextView) (findViewById(R.id.sol));
         try {
             float num1 = Float.valueOf(et.getText().toString());
             et = (EditText) (findViewById(R.id.op2));
             float num2 = Float.valueOf(et.getText().toString());
-
-            tv.setText(Float.toString(num1 * num2));
+            masterResult=num1 * num2;
+            solutionFormatter(num1 * num2);
         } catch (Exception e) {
             toastMsg("missing number");
         }
@@ -189,7 +145,10 @@ public class MainActivity extends AppCompatActivity {
                tv.setText("");
                toastMsg("Divide exception: "+res.toString());
            }
-           else tv.setText(Float.toString(num1 / num2));
+           else {
+                masterResult= num1 / num2;
+               solutionFormatter(num1/num2);
+           }
         } catch (Exception e) {
             toastMsg("missing number");
             tv.setText("");
@@ -208,6 +167,38 @@ public class MainActivity extends AppCompatActivity {
     }
     private void toastMsg(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if(fromUser)
+        {
+        numberOfZeros= progress/20;
+        TextView  tv = (TextView) (findViewById(R.id.sol));
+
+        if(!tv.getText().toString().equals(""))
+        solutionFormatter(masterResult);
+
+        TextView  Etv = (TextView) (findViewById(R.id.eTv));
+        Etv.setText(String.format("Example %."+numberOfZeros+"f",123.0));
+
+        }
+    }
+
+    private  void solutionFormatter(float f)
+    {
+        TextView tv = (TextView) (findViewById(R.id.sol));
+        tv.setText(String.format("%."+numberOfZeros+"f",f));
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
     }
 
 
