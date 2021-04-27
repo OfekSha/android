@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
         public int numberOfZeros=0;
         public float masterResult =0;
-        public boolean dynamicFlag=true;
+        public boolean dynamicFlag=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

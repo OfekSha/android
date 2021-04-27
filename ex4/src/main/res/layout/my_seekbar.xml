@@ -45,7 +45,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center|top"
-            android:text="Example:" />
+            android:text="Example: 123" />
     </LinearLayout>
 
 </FrameLayout>
