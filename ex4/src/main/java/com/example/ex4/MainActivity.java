@@ -4,6 +4,8 @@ package com.example.ex4;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,12 +14,15 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,11 +31,20 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
         public int numberOfZeros=0;
         public float masterResult =0;
+        public boolean dynamicFlag=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //for reuse option
+        if(!dynamicFlag)
         setContentView(R.layout.activity_main);
+
+        //dynamic option
+        else {
+            setContentView(R.layout.activity_main2);
+            addSubLayOut();
+        }
 
         EditText tvU = (EditText) findViewById(R.id.op1);
         EditText tvL = (EditText) findViewById(R.id.op2);
@@ -38,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         handlerNumber.onTextChanged("ss",1,2,3);
         tvU.addTextChangedListener(handlerNumber);
         tvL.addTextChangedListener(handlerNumber);
-        //-------------
+        //------------- adding SeekBar Listener
         ((SeekBar)findViewById(R.id.sb)).setOnSeekBarChangeListener(this);
         //-------------
         findViewById(R.id.clr).setOnClickListener(new View.OnClickListener(){
@@ -55,10 +69,28 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             }
         });
 
+    }// end of onCreate
 
+    private void addSubLayOut()
+    {
+        ViewGroup parentLayout= (ViewGroup) findViewById(R.id.mainConst);
+        View child = getLayoutInflater().inflate(R.layout.my_seekbar, parentLayout, false);
+        parentLayout.addView(child);
 
+        ConstraintSet set = new ConstraintSet();
+        set.clone((ConstraintLayout) parentLayout);
 
+        set.connect(child.getId(),ConstraintSet.BOTTOM,parentLayout.getId(),ConstraintSet.BOTTOM,dp2px(0));
+        set.connect(child.getId(),ConstraintSet.RIGHT,parentLayout.getId(),ConstraintSet.RIGHT,dp2px(28));
 
+        set.applyTo((ConstraintLayout) parentLayout);
+    }
+
+    public  int dp2px(int dp)
+    {
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        float px = dp* ((float)metrics.densityDpi/ DisplayMetrics.DENSITY_DEFAULT);
+        return (int) px;
     }
 
 
