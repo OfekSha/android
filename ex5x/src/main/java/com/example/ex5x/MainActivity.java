@@ -6,7 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements FragA.FragAListener, FragB.FragBListener{
+public class MainActivity extends AppCompatActivity implements FragA.FragAListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -15,19 +15,20 @@ public class MainActivity extends AppCompatActivity implements FragA.FragAListen
 
 
 	@Override
-	public void OnClickEvent() {
+	public void OnClickEvent(float f1, float f2 ,String s) {
 		FragB fragB;
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
 		{
 			getSupportFragmentManager().beginTransaction()
 					.setReorderingAllowed(true)
-					.add(R.id.fragContainer, FragB.class, null,"FRAGB")
-					.addToBackStack("BBB")
+					.replace(R.id.fragContainer, FragB.class, null,"FRAGB")
+					.addToBackStack(null)
 					.commit();
 			getSupportFragmentManager().executePendingTransactions();
+			//.add(R.id.fragContainer, FragB.class, null,"FRAGB")
 		}
 		fragB = (FragB) getSupportFragmentManager().findFragmentByTag("FRAGB");
-		fragB.onNewClick();
+		fragB.updateStuff(f1,f2,s);
 	}
 
 }
