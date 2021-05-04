@@ -2,6 +2,8 @@ package com.example.ex6;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,9 +20,27 @@ public class MainActivity extends AppCompatActivity implements FragA.FragAListen
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 
-		//super.onSaveInstanceState(outState);
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu,menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId())
+		{
+			case R.id.exit:
+				ExitDialogFrag.newInstance().show(getSupportFragmentManager(), "dialog");
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+
+
+	}
 
 	@Override
 	public void OnClickEvent(float f1, float f2 ,String s) {
