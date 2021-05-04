@@ -7,11 +7,5 @@
     android:id="@+id/fragContainer"
     tools:context="com.example.ex5x.MainActivity">
 
-     <fragment
-         android:id="@+id/fragA"
-         class="com.example.ex5x.FragA"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         tools:layout="@layout/frag_a" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

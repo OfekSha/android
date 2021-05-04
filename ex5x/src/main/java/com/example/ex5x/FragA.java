@@ -21,7 +21,10 @@ import android.widget.Toast;
 
 public class FragA extends Fragment  {
 	 FragAListener listener;
-	View saveView;
+	 View saveView;
+	 float num1=0,num2=0;
+
+
 	@Override
 	public void onAttach(@NonNull Context context) {
 		try{
@@ -95,9 +98,9 @@ public class FragA extends Fragment  {
 		hideSoftKeyboard();
 		EditText et = (EditText) (saveView.findViewById(R.id.op1));
 		try {
-			float num1 = Float.valueOf(et.getText().toString());
+			 num1 = Float.valueOf(et.getText().toString());
 			et = (EditText) (saveView.findViewById(R.id.op2));
-			float num2 = Float.valueOf(et.getText().toString());
+			 num2 = Float.valueOf(et.getText().toString());
 			listener.OnClickEvent(num1,num2,"+");
 
 		} catch (Exception e) {
@@ -112,9 +115,9 @@ public class FragA extends Fragment  {
 		hideSoftKeyboard();
 		EditText et = (EditText) (saveView.findViewById(R.id.op1));
 		try {
-			float num1 = Float.valueOf(et.getText().toString());
+			 num1 = Float.valueOf(et.getText().toString());
 			et = (EditText) (saveView.findViewById(R.id.op2));
-			float num2 = Float.valueOf(et.getText().toString());
+			 num2 = Float.valueOf(et.getText().toString());
 
 			listener.OnClickEvent(num1,num2,"-");
 
@@ -128,9 +131,9 @@ public class FragA extends Fragment  {
 		hideSoftKeyboard();
 		EditText et = (EditText) (saveView.findViewById(R.id.op1));
 		try {
-			float num1 = Float.valueOf(et.getText().toString());
+			 num1 = Float.valueOf(et.getText().toString());
 			et = (EditText) (saveView.findViewById(R.id.op2));
-			float num2 = Float.valueOf(et.getText().toString());
+			 num2 = Float.valueOf(et.getText().toString());
 			listener.OnClickEvent(num1,num2,"*");
 
 		} catch (Exception e) {
@@ -142,9 +145,9 @@ public class FragA extends Fragment  {
 		hideSoftKeyboard();
 		EditText et = (EditText) (saveView.findViewById(R.id.op1));
 		try {
-			float num1 = Float.valueOf(et.getText().toString());
+			 num1 = Float.valueOf(et.getText().toString());
 			et = (EditText) (saveView.findViewById(R.id.op2));
-			float num2 = Float.valueOf(et.getText().toString());
+			 num2 = Float.valueOf(et.getText().toString());
 			Float res= num1 / num2;
 			if (res.isInfinite() || res.isNaN()) {
 

@@ -39,14 +39,14 @@ public class FragB extends Fragment implements  SeekBar.OnSeekBarChangeListener 
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-		this.tvValue= (TextView) view.findViewById(R.id.sol);
 		((SeekBar)getActivity().findViewById(R.id.sb)).setOnSeekBarChangeListener(this);
 		super.onViewCreated(view, savedInstanceState);
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
-		tvValue.setText(""+myInt);
+		TextView tv = (TextView) (getActivity().findViewById(R.id.sol));
+		tv.setText(""+myInt);
 		super.onActivityCreated(savedInstanceState);
 	}
 
