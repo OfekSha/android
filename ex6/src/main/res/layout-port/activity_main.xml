@@ -11,6 +11,7 @@
          class="com.example.ex6.FragA"
          android:layout_width="match_parent"
          android:layout_height="match_parent"
-         tools:layout="@layout/frag_a"/>
+         tools:layout="@layout/frag_a"
+         android:tag="FRAGA"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

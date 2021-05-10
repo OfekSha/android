@@ -6,8 +6,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
@@ -15,20 +18,21 @@ import android.widget.TextView;
 
 import com.example.ex5x.R;
 
-public class FragB extends Fragment implements  SeekBar.OnSeekBarChangeListener {
+public class FragB extends Fragment  {
 	TextView tvValue;
-	int	numberOfZeros=0;
+
 	static int myInt=0;
 	float masterResult;
 	float n1,n2;
 	String operation;
-
+	public int numberOfZeros=0;
 
 
 
 
 	@Override
 	public void onAttach(@NonNull Context context) {
+
 		super.onAttach(context);
 	}
 
@@ -41,7 +45,6 @@ public class FragB extends Fragment implements  SeekBar.OnSeekBarChangeListener 
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-		((SeekBar)getActivity().findViewById(R.id.sb)).setOnSeekBarChangeListener(this);
 		super.onViewCreated(view, savedInstanceState);
 	}
 
@@ -49,7 +52,21 @@ public class FragB extends Fragment implements  SeekBar.OnSeekBarChangeListener 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		TextView tv = (TextView) (getActivity().findViewById(R.id.sol));
 		tv.setText(""+myInt);
+		numberOfZeros=((MainActivity)getActivity()).numberOfZeros;
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+			Menu menu = ((MainActivity) getActivity()).getMenu();
+			menu.getItem(1).setVisible(true);
+		}
 		super.onActivityCreated(savedInstanceState);
+
+	}
+
+	@Override
+	public void onDestroy() {
+		Menu menu=((MainActivity)getActivity()).getMenu();
+		menu.getItem(1).setVisible(false);
+		((MainActivity)getActivity()).numberOfZeros=numberOfZeros;
+		super.onDestroy();
 	}
 
 	//the activity informs fragB about new click in fragA
@@ -77,7 +94,10 @@ public class FragB extends Fragment implements  SeekBar.OnSeekBarChangeListener 
 		solutionFormatter(masterResult);
 
 	}
-
+public void updateZeroNumbers(int n){
+	numberOfZeros=n;
+	solutionFormatter(masterResult);
+}
 	private  void solutionFormatter(float f)
 	{
 		TextView tv = (TextView) (getActivity().findViewById(R.id.sol));
@@ -86,32 +106,7 @@ public class FragB extends Fragment implements  SeekBar.OnSeekBarChangeListener 
 
 
 
-	@Override
-	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-		if(fromUser)
-		{
-			numberOfZeros= progress/20;
-			TextView  tv = (TextView) (getActivity().findViewById(R.id.sol));
 
-			if(!tv.getText().toString().equals(""))
-				solutionFormatter(masterResult);
-
-			TextView  Etv = (TextView) (getActivity().findViewById(R.id.eTv));
-			Etv.setText(String.format("Example %."+numberOfZeros+"f",123.0));
-
-		}
-	}
-
-
-	@Override
-	public void onStartTrackingTouch(SeekBar seekBar) {
-
-	}
-
-	@Override
-	public void onStopTrackingTouch(SeekBar seekBar) {
-
-	}
 
 
 

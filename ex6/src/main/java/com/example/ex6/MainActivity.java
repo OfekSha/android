@@ -4,12 +4,18 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ex5x.R;
 
 public class MainActivity extends AppCompatActivity implements FragA.FragAListener{
+	Menu menu;
+	FragB fragB;
+	int numberOfZeros=0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -19,12 +25,16 @@ public class MainActivity extends AppCompatActivity implements FragA.FragAListen
 	}
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		this.menu=menu;
 		getMenuInflater().inflate(R.menu.menu,menu);
+		if (getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT)
+		{
+			menu.getItem(1).setVisible(true);
+		}
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -35,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements FragA.FragAListen
 			case R.id.exit:
 				ExitDialogFrag.newInstance().show(getSupportFragmentManager(), "dialog");
 				return true;
+			case R.id.settings:
+				seekBarDialogFrag.newInstance(fragB.numberOfZeros).show(getSupportFragmentManager(), "dialog");
+
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
@@ -44,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements FragA.FragAListen
 
 	@Override
 	public void OnClickEvent(float f1, float f2 ,String s) {
-		FragB fragB;
+
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
 		{
 			getSupportFragmentManager().beginTransaction()
@@ -58,5 +72,10 @@ public class MainActivity extends AppCompatActivity implements FragA.FragAListen
 		fragB = (FragB) getSupportFragmentManager().findFragmentByTag("FRAGB");
 		fragB.updateStuff(f1,f2,s);
 	}
-
+	public Menu getMenu(){
+		return menu;
+	}
+	public FragB getFragB(){
+		return fragB;
+	}
 }
