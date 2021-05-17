@@ -5,7 +5,7 @@
             <solid android:color="#0055FF" />
         </shape>
     </item>
-    <item android:left="5dp" android:right="5dp"  android:top="5dp" android:bottom="5dp" >
+    <item android:left="2dp" android:right="2dp"  android:top="2dp" android:bottom="2dp" >
         <shape android:shape="rectangle">
             <solid android:color="#00F6FF" />
         </shape>
