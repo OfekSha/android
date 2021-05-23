@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#5DAAE4"
+    android:clickable="true">
+
+    <TextView
+        android:id="@+id/contName"
+        android:layout_width="174dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="198dp"
+        android:layout_marginBottom="24dp"
+        android:text="TextView"
+        android:textColor="#FFF5F5"
+        app:layout_constraintBottom_toTopOf="@+id/countDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/countDesc"
+        android:layout_width="343dp"
+        android:layout_height="324dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="189dp"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contName" />
+</androidx.constraintlayout.widget.ConstraintLayout>
