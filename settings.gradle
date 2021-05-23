@@ -1,3 +1,4 @@
+include ':ex8'
 include ':ex7'
 include ':ex6'
 include ':ex5x'
