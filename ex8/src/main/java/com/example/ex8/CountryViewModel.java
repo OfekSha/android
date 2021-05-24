@@ -27,4 +27,6 @@ public class CountryViewModel extends AndroidViewModel {
     public MutableLiveData<Integer> getItemSelected() {
         return itemSelected;
     }
+
+
 }

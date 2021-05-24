@@ -18,9 +18,14 @@ public class RecyclerCountryAdapter extends RecyclerView.Adapter<RecyclerCountry
     private ArrayList<Country> Countries;
     private int selectedCountry;
     private CountryViewModel vmInstance;
-    public RecyclerCountryAdapter(ArrayList arrayList,CountryViewModel vmInstance){
-        Countries=arrayList;
-        this.vmInstance=vmInstance;
+
+    public RecyclerCountryAdapter(CountryViewModel vmInstance){
+        this.vmInstance= vmInstance;
+        setCountries(vmInstance.getCountries().getValue());
+    }
+    public void setCountries (ArrayList<Country> countries)
+    {
+        this.Countries=countries;
     }
 
     public void setSelectedCountry(int selectedCountry) {
@@ -32,21 +37,22 @@ public class RecyclerCountryAdapter extends RecyclerView.Adapter<RecyclerCountry
         private TextView population;
         private ImageView flag;
         private ViewHolder_onLongClickAction onLongClickActioner =null;
+        private ViewHolder_onClick viewHolder_onClick =null;
         private ViewHolder_onClick onClickActioher;
         private Country country;
+        private int position=0;
 
 
-        public ViewHolder(View view,ViewHolder_onClick onClickActioher) {
+        public ViewHolder(View view) {
             super(view);
             countryName = (TextView)view.findViewById(R.id.country);
             population = (TextView)view.findViewById(R.id.population);
             flag =(ImageView) view.findViewById(R.id.flag);
-            this.onClickActioher=onClickActioher;
             view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
                     if(onLongClickActioner !=null){
-                    return onLongClickActioner.onLongClickAction(v);
+                    return onLongClickActioner.onLongClickAction(v,position);
                     }
                     return false;
                 }
@@ -55,15 +61,15 @@ public class RecyclerCountryAdapter extends RecyclerView.Adapter<RecyclerCountry
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(onClickActioher !=null){
-                        onClickActioher.onClick(country);
+                    viewHolder_onClick.onClick(v,position);
                     }
-                }
+
             });
         }
 
-        public void  setData(Country country)
+        public void  setData(Country country, int position)
         {
+            this.position=position;
             this.countryName.setText(country.getName());
             population.setText(country.getShorty());
 
@@ -80,19 +86,22 @@ public class RecyclerCountryAdapter extends RecyclerView.Adapter<RecyclerCountry
         //an interface used to set stuff view holder uonLongClickAction
         public interface ViewHolder_onLongClickAction
         {
-            public boolean  onLongClickAction(View v);
-            public void setPosition(int position);
+            public boolean  onLongClickAction(View v,int position);
 
         }
         //an interface  used to receive data from viewHolder when clicked
         public  interface ViewHolder_onClick
         {
-            public void  onClick (Country country);
+            public void onClick(View v,int position);
         }
 
-        public void set_ViewHolder_set(ViewHolder_onLongClickAction viewHolder_onLongClickAction)
+        public void set_ViewHolder_onLongClickAction(ViewHolder_onLongClickAction viewHolder_onLongClickAction)
         {
-            onLongClickActioner = viewHolder_onLongClickAction;
+            this.onLongClickActioner = viewHolder_onLongClickAction;
+        }
+        public void set_ViewHolder_onClick(ViewHolder_onClick viewHolder_onClick)
+        {
+            this.viewHolder_onClick = viewHolder_onClick;
         }
     }
 
@@ -104,38 +113,40 @@ public class RecyclerCountryAdapter extends RecyclerView.Adapter<RecyclerCountry
     public RecyclerCountryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View row= layoutInflater.inflate(R.layout.row, parent, false);
-        ViewHolder viewHolder = new ViewHolder(row,(ViewHolder.ViewHolder_onClick)parent.getContext());
+        ViewHolder viewHolder = new ViewHolder(row);
         return viewHolder;
     }
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(@NonNull RecyclerCountryAdapter.ViewHolder holder, int position) {
         final Country country = Countries.get(position);
-        holder.setData(country);
+        holder.setData(country,position);
         ViewHolder.ViewHolder_onLongClickAction viewHolder_onLongClickAction =new ViewHolder.ViewHolder_onLongClickAction()
         {
-            private  int position;
+
 
             @Override
-            public boolean  onLongClickAction(View v)
+            public boolean  onLongClickAction(View v, int position)
             {
-                Countries.remove(this.position);
+                Countries.remove(position);
+                (vmInstance.getCountries()).setValue(Countries);
                 notifyDataSetChanged();
                 return false;
             }
+
+        };
+        holder.set_ViewHolder_onLongClickAction(viewHolder_onLongClickAction);
+
+
+        ViewHolder.ViewHolder_onClick ViewHolder_onClick = new ViewHolder.ViewHolder_onClick() {
+
             @Override
-            public void setPosition(int position)
-            {
-                this.position=position;
+            public void onClick(View v,int position) {
+                (vmInstance.getItemSelected()).setValue(position);
+                notifyDataSetChanged();
             }
         };
-        viewHolder_onLongClickAction.setPosition(position);
-        holder.set_ViewHolder_set(viewHolder_onLongClickAction);
-
-
-
-
-
+        holder.set_ViewHolder_onClick( ViewHolder_onClick);
 
     }
     // total number of rows

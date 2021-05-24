@@ -19,33 +19,49 @@ import java.util.ArrayList;
 
 
 public class TheFrag extends Fragment {
+
     private  RecyclerCountryAdapter adapter;
     private  RecyclerView recyclerView;
     private CountryViewModel vm;
-    Observer<ArrayList> ListUpdateObserver = new Observer<ArrayList>() {
-        @Override
-        public void onChanged(ArrayList ArrayList) {
-            Context context = getContext();
-            adapter = new RecyclerCountryAdapter(ArrayList,vm);
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(adapter);
-        }
-    };
-    Observer<Integer> selectedUpdateObserver = new Observer<Integer>() {
-        @Override
-        public void onChanged(Integer selected) {
 
-            adapter.setSelectedCountry(selected);
-        }
-    };
+    Observer<ArrayList> ListUpdateObserver ;
+    Observer<Integer> selectedUpdateObserver ;
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Context context = getContext();
         recyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler);
-        vm=ViewModelProviders.of(this).get(CountryViewModel.class);
-        vm.getCountries().observe(getViewLifecycleOwner(), ListUpdateObserver);
+
+        vm=ViewModelProviders.of(requireActivity()).get(CountryViewModel.class);
+
+        ListUpdateObserver= new Observer<ArrayList>() {
+            @Override
+            public void onChanged(ArrayList ArrayList) {
+                Context context = getContext();
+                adapter.setCountries(ArrayList);
+            }
+        };
+
+        selectedUpdateObserver= new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer selected) {
+
+                adapter.setSelectedCountry(selected);
+
+            }
+        };
+
+
+        vm.getCountries().observe(getViewLifecycleOwner(),ListUpdateObserver );
         vm.getItemSelected().observe(getViewLifecycleOwner(),selectedUpdateObserver);
+        //
+        adapter = new RecyclerCountryAdapter(vm);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        //
+
+
+
     }
 
     @Override
