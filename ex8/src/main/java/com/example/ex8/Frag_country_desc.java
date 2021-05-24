@@ -25,11 +25,31 @@ public class Frag_country_desc extends Fragment  {
     Observer<ArrayList> ListUpdateObserver ;
     Observer<Integer> selectedUpdateObserver ;
 
+     Country country =null ;
+    public Frag_country_desc(){
+    super(R.layout.frag_country_desc);
+    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         vm= ViewModelProviders.of(requireActivity()).get(CountryViewModel.class);
 
+        ListUpdateObserver= new Observer<ArrayList>() {
+            @Override
+            public void onChanged(ArrayList ArrayList) {
+            if(country!=null){
+                if(!ArrayList.contains(country))
+                {
+                    TextView cname = (TextView) (getActivity().findViewById(R.id.contName));
+                    TextView cdesc = (TextView) (getActivity().findViewById(R.id.countDesc));
+                    cname.setText("");
+                    cdesc.setText("");
+                    country =null;
+                }
+
+                }
+            }
+        };
 
 
         selectedUpdateObserver= new Observer<Integer>() {
@@ -43,30 +63,34 @@ public class Frag_country_desc extends Fragment  {
         };
 
         vm.getItemSelected().observe(getViewLifecycleOwner(),selectedUpdateObserver);
+        vm.getCountries().observe(getViewLifecycleOwner(),ListUpdateObserver);
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
     }
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.frag_country_desc, container,false);
-    }
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        return inflater.inflate(R.layout.frag_country_desc, container,false);
+//    }
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
 
     public void setTextViews(Country country) {
+            this.country=country;
             TextView cname = (TextView) (getActivity().findViewById(R.id.contName));
             TextView cdesc = (TextView) (getActivity().findViewById(R.id.countDesc));
             cname.setText(country.name);
             cdesc.setText(country.details);
         }
 
+    @Override
+    public void onDestroy() {
 
-
-
+        super.onDestroy();
+    }
 }

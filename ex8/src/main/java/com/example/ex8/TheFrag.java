@@ -19,13 +19,15 @@ import java.util.ArrayList;
 
 
 public class TheFrag extends Fragment {
-
     private  RecyclerCountryAdapter adapter;
     private  RecyclerView recyclerView;
     private CountryViewModel vm;
 
     Observer<ArrayList> ListUpdateObserver ;
     Observer<Integer> selectedUpdateObserver ;
+    public TheFrag(){
+        super(R.layout.main_frag);
+    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -54,11 +56,11 @@ public class TheFrag extends Fragment {
 
         vm.getCountries().observe(getViewLifecycleOwner(),ListUpdateObserver );
         vm.getItemSelected().observe(getViewLifecycleOwner(),selectedUpdateObserver);
-        //
+
         adapter = new RecyclerCountryAdapter(vm);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        //
+
 
 
 
@@ -70,11 +72,11 @@ public class TheFrag extends Fragment {
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.main_frag, container, false);
-    }
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        return inflater.inflate(R.layout.main_frag, container, false);
+//    }
 
 
 

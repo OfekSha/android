@@ -1,5 +1,6 @@
 package com.example.ex8;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -10,7 +11,9 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
+
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity  {
@@ -18,14 +21,17 @@ public class MainActivity extends AppCompatActivity  {
     private CountryViewModel vm;
     Observer<Integer> selectedUpdateObserver ;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         vm= ViewModelProviders.of(this).get(CountryViewModel.class);
-
-
 
         selectedUpdateObserver= new Observer<Integer>() {
             @Override
@@ -47,8 +53,6 @@ public class MainActivity extends AppCompatActivity  {
 
         vm.getItemSelected().observe(this,selectedUpdateObserver);
     }
-
-
 
 
 }

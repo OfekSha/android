@@ -12,13 +12,14 @@
         android:layout_width="174dp"
         android:layout_height="21dp"
         android:layout_marginStart="39dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="128dp"
         android:layout_marginEnd="198dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="17dp"
         android:text="TextView"
         android:textColor="#FFF5F5"
         app:layout_constraintBottom_toTopOf="@+id/countDesc"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,13 +28,14 @@
         android:layout_width="343dp"
         android:layout_height="324dp"
         android:layout_marginStart="34dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="17dp"
         android:layout_marginEnd="34dp"
-        android:layout_marginBottom="189dp"
+        android:layout_marginBottom="112dp"
         android:text="TextView"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contName" />
 </androidx.constraintlayout.widget.ConstraintLayout>
