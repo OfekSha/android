@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:color="white"
     >
 
     <CheckBoxPreference
         app:key="checkbox"
-        app:title="remember removed countries"
-        app:color="@color/black"/>
+        app:title="remember removed countries" />
 
 </PreferenceScreen>
